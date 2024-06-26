@@ -1,8 +1,8 @@
-package com.example.ex12crud_test;
+package com.example.demo;
 
-import com.example.ex12crud_test.students.models.Student;
-import com.example.ex12crud_test.students.repositories.StudentRepository;
-import com.example.ex12crud_test.students.services.StudentService;
+import com.example.demo.students.models.Student;
+import com.example.demo.students.repositories.StudentRepository;
+import com.example.demo.students.services.StudentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -35,14 +35,14 @@ public class StudentServiceTest {
     @Test
     public void create_test() {
         Student student = new Student();
-        student.setName("Gabriel");
-        student.setSurname("Dello Iacovo");
+        student.setName("Silvio");
+        student.setSurname("Vutea");
         student.setIsWorking(true);
 
         Student studentInserted = new Student();
         studentInserted.setId(1);
-        studentInserted.setName("Gabriel");
-        studentInserted.setSurname("Dello Iacovo");
+        studentInserted.setName("Silvio");
+        studentInserted.setSurname("Vutea");
         studentInserted.setIsWorking(true);
 
         when(studentRepository.save(student))
@@ -52,17 +52,19 @@ public class StudentServiceTest {
         assertEquals(result, studentInserted);
     }
 
+
+
     @Test
     public void getAll_test() {
         Student student = new Student();
-        student.setName("Gabriel");
-        student.setSurname("Dello Iacovo");
+        student.setName("Silvio");
+        student.setSurname("Vutea");
         student.setIsWorking(true);
         student.setId(1);
 
         Student student2 = new Student();
-        student2.setName("Gigi");
-        student2.setSurname("Dedda");
+        student2.setName("Rocco");
+        student2.setSurname("Siff");
         student2.setIsWorking(true);
         student2.setId(2);
 
@@ -77,7 +79,7 @@ public class StudentServiceTest {
     }
 
     @Test
-    public void getBy_idNotFoundTest() {
+    public void getBy_idNotFoundedTest() {
         when(studentRepository.findById(0L))
                 .thenReturn(Optional.empty());
         assertThrows(ClassNotFoundException.class, () -> studentService.getBy(0));
@@ -86,8 +88,8 @@ public class StudentServiceTest {
     @Test
     public void getBy_test() throws ClassNotFoundException {
         Student student = new Student();
-        student.setName("Gabriel");
-        student.setSurname("Dello Iacovo");
+        student.setName("Silvio");
+        student.setSurname("Vutea");
         student.setIsWorking(true);
         student.setId(1);
 
@@ -100,15 +102,15 @@ public class StudentServiceTest {
     @Test
     public void updateStatus_test() throws ClassNotFoundException {
         Student student = new Student();
-        student.setName("Gabriel");
-        student.setSurname("Dello Iacovo");
+        student.setName("Silvio");
+        student.setSurname("Vutea");
         student.setIsWorking(true);
 
 
         Student studentInserted = new Student();
         studentInserted.setId(1);
-        studentInserted.setName("Gabriel");
-        studentInserted.setSurname("Dello Iacovo");
+        studentInserted.setName("Silvio");
+        studentInserted.setSurname("Vutea");
         studentInserted.setIsWorking(false);
 
         when(studentRepository.findById(1L))

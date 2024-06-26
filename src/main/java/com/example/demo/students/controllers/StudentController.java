@@ -1,9 +1,8 @@
-package com.example.ex12crud_test.students.controllers;
+package com.example.demo.students.controllers;
 
-import com.example.ex12crud_test.students.models.Student;
-import com.example.ex12crud_test.students.services.StudentService;
+import com.example.demo.students.models.Student;
+import com.example.demo.students.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +27,13 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<Collection<Student>> loadAll() {
+    public ResponseEntity<Collection<Student>> retrieveAll() {
         return ResponseEntity.status(HttpStatus.FOUND).body(studentService.getAll());
     }
 
     @ResponseStatus(HttpStatus.FOUND)
     @GetMapping("/{id}")
-    public Student loadBy(@PathVariable long id) throws ClassNotFoundException {
+    public Student retrieveOne(@PathVariable long id) throws ClassNotFoundException {
         return studentService.getBy(id);
     }
 
@@ -45,7 +44,7 @@ public class StudentController {
 
     @ResponseStatus(HttpStatus.ACCEPTED)
     @PutMapping("/{id}/status")
-    public Student updateStatus(@PathVariable long id, @RequestParam boolean working) throws ClassNotFoundException {
+    public Student updateWorkingStatus(@PathVariable long id, @RequestParam boolean working) throws ClassNotFoundException {
         return studentService.updateStatus(id, working);
     }
 

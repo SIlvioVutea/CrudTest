@@ -1,10 +1,8 @@
-package com.example.ex12crud_test.students.repositories;
+package com.example.demo.students.repositories;
 
-import com.example.ex12crud_test.students.models.Student;
+import com.example.demo.students.models.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import javax.swing.*;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {

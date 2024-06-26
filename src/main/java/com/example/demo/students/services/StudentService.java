@@ -1,11 +1,7 @@
-package com.example.ex12crud_test.students.services;
+package com.example.demo.students.services;
 
-import com.example.ex12crud_test.students.models.Student;
-import com.example.ex12crud_test.students.repositories.StudentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import com.example.demo.students.models.Student;
+import com.example.demo.students.repositories.StudentRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +22,6 @@ public class StudentService {
 
     public Collection<Student> getAll() {
         Sort sort = Sort.by(Sort.Direction.DESC, "surname");
-        //Pageable pageable = PageRequest.of(page, size, sort);
         return studentRepository.findAll();
     }
 

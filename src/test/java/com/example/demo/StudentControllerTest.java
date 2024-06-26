@@ -1,7 +1,7 @@
-package com.example.ex12crud_test;
+package com.example.demo;
 
-import com.example.ex12crud_test.students.controllers.StudentController;
-import com.example.ex12crud_test.students.models.Student;
+import com.example.demo.students.controllers.StudentController;
+import com.example.demo.students.models.Student;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ActiveProfiles(value = "test")
 @AutoConfigureMockMvc
-//https://stackoverflow.com/questions/34617152/how-to-re-create-database-before-each-test-in-spring
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class StudentControllerTest {
 
@@ -54,8 +53,8 @@ class StudentControllerTest {
 
     private Student createStudent() {
         Student student = new Student();
-        student.setName("Gabriel");
-        student.setSurname("Dello");
+        student.setName("Silvio");
+        student.setSurname("Vutea");
         student.setIsWorking(false);
         return student;
     }
@@ -76,20 +75,20 @@ class StudentControllerTest {
         MvcResult result = createStudentRequest(student);
 
         Student actual = objectMapper.readValue(result.getResponse().getContentAsString(), Student.class);
-        assertThat(actual.getName()).isEqualTo("Gabriel");
+        assertThat(actual.getName()).isEqualTo("Silvio");
     }
 
 
     @Test
-    void readStudent_test() throws Exception {
+    void retrieveStudent_test() throws Exception {
         insertStudent();
         this.mockMvc.perform(get("/v1/students/1"))
                 .andDo(print())
                 .andExpect(status().isFound())
                 .andExpect(content().json("""
                         {"id": 1,
-                        "name": "Gabriel",
-                        "surname": "Dello",
+                        "name": "Silvio",
+                        "surname": "Vutea",
                         "isWorking": false
                         }
                         """))
@@ -97,7 +96,7 @@ class StudentControllerTest {
     }
 
     @Test
-    void readStudentsList_test() throws Exception {
+    void retrieveStudentsList_test() throws Exception {
         insertStudent();
         insertStudent();
         this.mockMvc.perform(get("/v1/students"))
@@ -113,15 +112,15 @@ class StudentControllerTest {
     void updateStudent_test() throws Exception {
         Student student = createStudent();
         Student registredStudent = getStudent(student);
-        registredStudent.setName("Luca");
+        registredStudent.setName("Paolo");
         String studentJson = objectMapper.writeValueAsString(registredStudent);
         this.mockMvc.perform(put("/v1/students/" + registredStudent.getId()).content(studentJson).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isAccepted())
                 .andExpect(content().json("""
                         {
-                        "name": "Luca",
-                        "surname": "Dello",
+                        "name": "Paolo",
+                        "surname": "Vutea",
                         "isWorking": false
                         }
                         """))
@@ -129,7 +128,7 @@ class StudentControllerTest {
     }
 
     @Test
-    void updateStudentStatus_test() throws Exception {
+    void updateStudentWorkingStatus_test() throws Exception {
         Student student = createStudent();
         Student registredStudent = getStudent(student);
         String studentJson = objectMapper.writeValueAsString(registredStudent);
@@ -138,8 +137,8 @@ class StudentControllerTest {
                 .andExpect(status().isAccepted())
                 .andExpect(content().json("""
                         {
-                        "name": "Gabriel",
-                        "surname": "Dello",
+                        "name": "Silvio",
+                        "surname": "Vutea",
                         "isWorking": true
                         }
                         """))
